@@ -57,7 +57,7 @@ class sldbRequest {
     foreach($data as $key => $value) {
       $sql = "INSERT INTO " . $this->table . " (uuid, field, value, changed) VALUES ('$uuid', '$key', '$value', UNIX_TIMESTAMP(NOW())) ON DUPLICATE KEY UPDATE value = '$value', changed = UNIX_TIMESTAMP(NOW())";
       $this->result = $this->connection->query($sql) or die($this->connection->error);
-      $this->output = $verbose ? "SUCCESS: " . $this->connection->affected_rows() : $this->connection->affected_rows();
+      $this->output = $verbose ? "SUCCESS: " . $this->connection->affected_rows : $this->connection->affected_rows;
     }
   }
 
@@ -114,7 +114,7 @@ class sldbRequest {
     $sql = "DELETE FROM " . $this->table . " WHERE uuid = '$uuid'";
     $sql .= empty($fields) ? '' : " AND field IN (" . implode(', ', (array)$fields) . ")";
 
-    $this->result = mysql_query($sql) or die(mysql_error());
-    $this->output = $verbose ? "SUCCESS: " . mysql_affected_rows() : mysql_affected_rows();
+    $this->result = $this->connection->query($sql) or die($this->connection->error);
+    $this->output = $verbose ? "SUCCESS: " . $this->connection->affected_rows : $this->connection->affected_rows;
   }
 }
