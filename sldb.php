@@ -36,7 +36,7 @@ class sldbRequest {
    * Create a table for use.
    */
   function createTable() {
-    $sql = "CREATE TABLE IF NOT EXISTS `" . $this->table . "` (`uuid` varchar(32) NOT NULL DEFAULT '', `field` varchar(255) NOT NULL DEFAULT '', `value` longtext, `changed` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`uuid`,`field`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+    $sql = "CREATE TABLE IF NOT EXISTS `" . $this->table . "` (`uuid` varchar(64) NOT NULL DEFAULT '', `field` varchar(255) NOT NULL DEFAULT '', `value` longtext, `changed` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`uuid`,`field`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
     $this->result = $this->connection->query($sql) or die($this->connection->error);
     $this->output = "SUCCESS";
   }
